@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.springboot.sample.dao.UserDao">
+
+	<select id="getById" resultType="org.springboot.sample.entity.User">
+		SELECT
+		T.*
+		FROM USER1 T
+		WHERE T.ID
+		= #{id}
+	</select>
+
+	<select id="getCount" resultType="int">
+		SELECT
+		count(1)
+		FROM USER1 T
+	</select>
+
+	<select id="selectAll" resultType="org.springboot.sample.entity.User">
+		SELECT
+		T.*
+		FROM USER1 T
+	</select>
+
+	<select id="select" resultType="org.springboot.sample.entity.User">
+		select T.* FROM USER1 T
+		ORDER BY T.ID
+	</select>
+
+	<select id="getUser" resultType="org.springboot.sample.entity.User">
+		SELECT * FROM USER1
+	</select>
+
+	<!-- 插入语句 -->
+	<insert id="insert">
+		INSERT INTO USER1
+		(
+		<if test="id != null">ID,</if>
+		NAME,ADDRESS,CREATE_USER_ID)
+		VALUES
+		(
+		<if test="id != null">#{id,jdbcType=NUMERIC},</if>
+		#{name,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR},#{currentUserId,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<!-- 更新语句 -->
+	<update id="update" parameterType="org.springboot.sample.entity.User">
+		UPDATE USER1 SET
+		NAME =
+		#{name,jdbcType=VARCHAR},
+		ADDRESS = #{address,jdbcType=VARCHAR}
+		WHERE ID
+		= #{id,jdbcType=NUMERIC}
+	</update>
+	
+	<!-- 删除语句 -->
+	<delete id="deleteById">
+		DELETE FROM USER1
+		WHERE ID = #{id,jdbcType=NUMERIC}
+	</delete>
+
+</mapper>
+
